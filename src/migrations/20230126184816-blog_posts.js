@@ -24,10 +24,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         field: 'user_id',
-        // references: {
-        //   model: '',
-        //   key: '',
-        // },
+        references: {
+          model: 'User',
+          key: 'id',
+        },
       },
       published: {
         allowNull: false,
