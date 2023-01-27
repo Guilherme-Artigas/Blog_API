@@ -12,6 +12,12 @@ router.get(
   userController.getAllUsers,
 );
 
+router.get(
+  '/:id',
+  verifyToken,
+  userController.getOneUserById,
+);
+
 router.post(
   '/',
   validUser,

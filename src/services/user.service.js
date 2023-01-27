@@ -3,9 +3,17 @@ const { tokenGenerate } = require('../utils/token');
 
 const getAllUsers = async () => {
   const listUsers = await UserModel.findAll({
-    attributes: ['id', 'displayName', 'email', 'image'],
+    attributes: { exclude: ['password'] },
   });
   return listUsers;
+};
+
+const getOneUserById = async (id) => {
+ const userUnique = await UserModel.findOne({
+  attributes: { exclude: ['password'] },
+  where: { id },
+ });
+ return userUnique;
 };
 
 const registerUser = async (body) => {
@@ -18,5 +26,6 @@ const registerUser = async (body) => {
 
 module.exports = {
   getAllUsers,
+  getOneUserById,
   registerUser,
 };
