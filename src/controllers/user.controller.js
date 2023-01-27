@@ -1,5 +1,15 @@
 const { userService } = require('../services');
 
+const getAllUsers = async (_req, res) => {
+  try {
+    const listAllUsers = await userService.getAllUsers();
+    return res.status(200).json(listAllUsers);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: e.message });
+  }
+};
+
 const registerUser = async (req, res) => {
   try {
     const { body } = req;
@@ -13,5 +23,6 @@ const registerUser = async (req, res) => {
 };
 
 module.exports = {
+  getAllUsers,
   registerUser,
 };

@@ -1,10 +1,5 @@
 const { User: UserModel } = require('../models');
-const { tokenGenerate } = require('../utils/tokenGenerate');
-
-const getAllUsers = async () => {
-  const listUsers = await UserModel.findAll();
-  return listUsers;
-};
+const { tokenGenerate } = require('../utils/token');
 
 const getByEmailAndPassword = async ({ email, password }) => {
   const userFound = await UserModel.findOne({ where: { email, password } });
@@ -17,7 +12,6 @@ const authentication = async (body) => {
 };
 
 module.exports = {
-  getAllUsers,
   getByEmailAndPassword,
   authentication,
 };
