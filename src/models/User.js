@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       image: {
-        allowNull: false,
+        defaultValue: 'url image',
         type: DataTypes.STRING,
       },
     },
     {
       timestamps: false,
-      tableName: 'Users',
+      tableName: 'users',
       underscored: true,
     },
   );
