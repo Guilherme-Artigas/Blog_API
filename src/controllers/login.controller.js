@@ -1,10 +1,10 @@
 const { loginService } = require('../services');
 
-const createNewUser = async (req, res) => {
+const authentication = async (req, res) => {
   try {
     const { body } = req;
-    const { message } = await loginService.createNewUser(body);
-    return res.status(200).json(message);
+    const { token } = await loginService.authentication(body);
+    return res.status(200).json({ token });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: e.message });
@@ -12,5 +12,5 @@ const createNewUser = async (req, res) => {
 };
 
 module.exports = {
-  createNewUser,
+  authentication,
 };

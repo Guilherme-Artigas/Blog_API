@@ -1,22 +1,23 @@
-// const { User: UserModel } = require('../models');
+const { User: UserModel } = require('../models');
+const { tokenGenerate } = require('../utils/tokenGenerate');
 
-// const getAllUsers = async () => {
-//   const listUsers = await UserModel.findAll();
-//   return listUsers;
-// };
+const getAllUsers = async () => {
+  const listUsers = await UserModel.findAll();
+  return listUsers;
+};
 
-// const getByEmailAndPassword = async ({ email, password }) => {
-//   const userFound = await UserModel.findOne({ where: { email, password } });
-//   return userFound;
-// };
+const getByEmailAndPassword = async ({ email, password }) => {
+  const userFound = await UserModel.findOne({ where: { email, password } });
+  return userFound;
+};
 
-// const createNewUser = async (body) => {
-//   await UserModel.create(body);
-//   return { message: 'oi' };
-// };
+const authentication = async (body) => {
+  const token = tokenGenerate(body);
+  return { token };
+};
 
 module.exports = {
-  // getAllUsers,
-  // getByEmailAndPassword,
-  // createNewUser,
+  getAllUsers,
+  getByEmailAndPassword,
+  authentication,
 };
