@@ -3,6 +3,28 @@ const { userService } = require('../services');
 const { postCategoryService } = require('../services');
 const { validateToken } = require('../utils/token');
 
+const getAllPosts = async (req, res) => {
+  try {
+    const listPosts = await postsService.getAllPosts();
+    return res.status(200).json(listPosts);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Erro ao recuperar a lista de todos os posts' });
+  }
+};
+
+const getPostById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await postsService.getPostById(id);
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+    return res.status(200).json(post);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Erro ao recuperar o post pelo ID' });
+  }
+};
+
 const createNewPost = async (req, res) => {
   try {
     const { body } = req;
@@ -19,5 +41,7 @@ const createNewPost = async (req, res) => {
 };
 
 module.exports = {
+  getAllPosts,
+  getPostById,
   createNewPost,
 };

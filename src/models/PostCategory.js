@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
       {
         as: 'blogposts',
         through: PostCategory,
-        foreignKey: 'id',
-        otherKey: 'id',
+        foreignKey: 'postId',
+        otherKey: 'categoryId',
       },
     );
 
@@ -38,8 +38,8 @@ module.exports = (sequelize, DataTypes) => {
       {
         as: 'categories',
         through: PostCategory,
-        foreignKey: 'id',
-        otherKey: 'id',
+        foreignKey: 'categoryId',
+        otherKey: 'postId',
       }
     )
   };
