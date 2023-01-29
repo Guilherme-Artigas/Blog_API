@@ -17,22 +17,22 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       userId: {
-        allowNull: false,
+        // allowNull: false,
         field: 'user_id',
         type: DataTypes.INTEGER,
       },
       published: {
-        allowNull: false,
+        defaultValue: DataTypes.NOW,
         type: DataTypes.DATE,
       },
       updated: {
-        allowNull: false,
+        defaultValue: DataTypes.NOW,
         type: DataTypes.DATE,
       },
     },
     {
       timestamps: false,
-      tablename: 'blog_posts',
+      tableName: 'blog_posts',
       underscored: true,
     }
   );

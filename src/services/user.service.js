@@ -16,6 +16,14 @@ const getOneUserById = async (id) => {
  return userUnique;
 };
 
+const getUserByEmail = async (email) => {
+  const userUnique = await UserModel.findOne({
+    where: { email },
+    attributes: { exclude: ['password'] },
+  });
+  return userUnique;
+};
+
 const registerUser = async (body) => {
   const verifyEmail = await UserModel.findOne({ where: { email: body.email } });
   if (verifyEmail !== null) return { status: 409, message: 'User already registered' };
@@ -27,5 +35,6 @@ const registerUser = async (body) => {
 module.exports = {
   getAllUsers,
   getOneUserById,
+  getUserByEmail,
   registerUser,
 };
