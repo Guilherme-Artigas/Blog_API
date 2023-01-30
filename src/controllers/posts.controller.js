@@ -51,9 +51,21 @@ const updatePosts = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await postsService.deletePost(id);
+    return res.status(204).json();
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Houve erro na hora de deletar algum postagem' });
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostById,
   createNewPost,
   updatePosts,
+  deletePost,
 };

@@ -1,5 +1,10 @@
 const { Router } = require('express');
-const { verifyToken, validateNewPosts, validateUpPosts } = require('../middlewares');
+const {
+  verifyToken,
+  validateNewPosts,
+  authorizeModifications,
+  authorizeDeletions,
+} = require('../middlewares');
 
 const { postsController } = require('../controllers');
 
@@ -27,8 +32,15 @@ router.post(
 router.put(
   '/:id',
   verifyToken,
-  validateUpPosts,
+  authorizeModifications,
   postsController.updatePosts,
+);
+
+router.delete(
+  '/:id',
+  verifyToken,
+  authorizeDeletions,
+  postsController.deletePost,
 );
 
 module.exports = router;
