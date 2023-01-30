@@ -38,7 +38,7 @@ const getPostByTerm = async (auth, word) => {
       [Op.or]: [{ title: { [Op.like]: `%${word}%` } }, { content: { [Op.like]: `%${word}%` } }],
     },
     include: [
-      { model: User, as: 'user', attributes: { exclude: ['password'] }, where: { id } },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories' },
     ],
   });
