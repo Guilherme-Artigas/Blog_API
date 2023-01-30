@@ -27,8 +27,8 @@ const getUserByEmail = async (email) => {
 const registerUser = async (body) => {
   const verifyEmail = await UserModel.findOne({ where: { email: body.email } });
   if (verifyEmail !== null) return { status: 409, message: 'User already registered' };
-  const { displayName, email, image } = await UserModel.create(body);
-  const message = tokenGenerate({ displayName, email, image });
+  const { id, displayName, email, image } = await UserModel.create(body);
+  const message = tokenGenerate({ id, displayName, email, image });
   return { message };
 };
 

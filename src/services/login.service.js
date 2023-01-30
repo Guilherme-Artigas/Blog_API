@@ -6,8 +6,12 @@ const getByEmailAndPassword = async ({ email, password }) => {
   return userFound;
 };
 
-const authentication = async (body) => {
-  const token = tokenGenerate(body);
+const authentication = async ({ email, password }) => {
+  const { id, displayName, image } = await UserModel.findOne({
+    where: { email, password },
+    attributes: { exclude: ['password'] },
+  });
+  const token = tokenGenerate({ id, displayName, email, image });
   return { token };
 };
 

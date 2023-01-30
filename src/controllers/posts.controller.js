@@ -40,8 +40,20 @@ const createNewPost = async (req, res) => {
   }
 };
 
+const updatePosts = async (req, res) => {
+  try {
+    const { body, params: { id } } = req;
+    const { updatedPost } = await postsService.updatePosts(body, id);
+    return res.status(200).json(updatedPost);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Houve algum na hora de atualizar postagens' });
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostById,
   createNewPost,
+  updatePosts,
 };
