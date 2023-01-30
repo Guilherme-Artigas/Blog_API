@@ -1,5 +1,5 @@
 const { User: UserModel } = require('../models');
-const { tokenGenerate } = require('../utils/token');
+const { tokenGenerate, validateToken } = require('../utils/token');
 
 const getAllUsers = async () => {
   const listUsers = await UserModel.findAll({
@@ -32,9 +32,15 @@ const registerUser = async (body) => {
   return { message };
 };
 
+const deleteMe = async (auth) => {
+  const { id } = await validateToken(auth);
+  await UserModel.destroy({ where: { id } });
+};
+
 module.exports = {
   getAllUsers,
   getOneUserById,
   getUserByEmail,
   registerUser,
+  deleteMe,
 };

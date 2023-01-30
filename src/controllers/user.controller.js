@@ -34,8 +34,20 @@ const registerUser = async (req, res) => {
   }
 };
 
+const deleteMe = async (req, res) => {
+  try {
+    const { headers: { authorization } } = req;
+    await userService.deleteMe(authorization);
+    return res.status(204).json();
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Houve erro ao deletar-se :(' });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getOneUserById,
   registerUser,
+  deleteMe,
 };

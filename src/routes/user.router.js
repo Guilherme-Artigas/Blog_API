@@ -23,4 +23,10 @@ router.post(
   userController.registerUser,
 );
 
+router.delete(
+  '/me',
+  verifyToken,
+  userController.deleteMe,
+);
+
 module.exports = router;
