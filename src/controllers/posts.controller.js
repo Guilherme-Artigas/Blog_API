@@ -25,6 +25,17 @@ const getPostById = async (req, res) => {
   }
 };
 
+const getPostByTerm = async (req, res) => {
+  try {
+    const { headers: { authorization }, query: { q } } = req;
+    const post = await postsService.getPostByTerm(authorization, q);
+    return res.status(200).json(post);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: 'Houve erro ao buscar post pelo termo' });
+  }
+};
+
 const createNewPost = async (req, res) => {
   try {
     const { body } = req;
@@ -65,6 +76,7 @@ const deletePost = async (req, res) => {
 module.exports = {
   getAllPosts,
   getPostById,
+  getPostByTerm,
   createNewPost,
   updatePosts,
   deletePost,

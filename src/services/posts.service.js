@@ -1,4 +1,6 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, Category } = require('../models');
+const { validateToken } = require('../utils/token');
 
 const getAllPosts = async () => {
   const listAllPosts = await BlogPost.findAll({
@@ -19,6 +21,28 @@ const getPostById = async (id) => {
     ],
   });
   return post;
+};
+
+// include: [
+//   { model: User, as: 'user', attributes: { exclude: ['password'] } },
+//   { model: Category, as: 'categories' }],
+// where: {
+//   [Op.or]: [{ title: { [Op.like]: `%${word}%` } }, { content: { [Op.like]: `%${word}%` } }],
+// },
+
+const getPostByTerm = async (auth, word) => {
+  const { id } = await validateToken(auth);
+  const posts = await BlogPost.findAll({
+    where: {
+      userId: id,
+      [Op.or]: [{ title: { [Op.like]: `%${word}%` } }, { content: { [Op.like]: `%${word}%` } }],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] }, where: { id } },
+      { model: Category, as: 'categories' },
+    ],
+  });
+  return posts;
 };
 
 const createNewPost = async (body) => {
@@ -45,6 +69,7 @@ const deletePost = async (id) => {
 module.exports = {
   getAllPosts,
   getPostById,
+  getPostByTerm,
   createNewPost,
   updatePosts,
   deletePost,

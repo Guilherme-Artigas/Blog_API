@@ -17,6 +17,12 @@ router.get(
 );
 
 router.get(
+  '/search',
+  verifyToken,
+  postsController.getPostByTerm,
+);
+
+router.get(
   '/:id',
   verifyToken,
   postsController.getPostById,
